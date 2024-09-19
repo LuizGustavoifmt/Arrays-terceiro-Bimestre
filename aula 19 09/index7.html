@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        function aprovados() {
+            var quantidadeAlunos = prompt("Digite a quantidade de alunos na sala de aula:");
+            var aprovados = 0;
+
+            for (var i = 0; i < quantidadeAlunos; i++) {
+                var mediaFinal = prompt("Digite a média final do aluno " + (i + 1) + ":");
+
+                if (Number(mediaFinal) >= 6.0) {
+                    aprovados++;
+                }
+            }
+
+            document.getElementById("demo").innerHTML = "A quantidade de alunos aprovados por média é: " + aprovados;
+        }
+
+        aprovados();
+    </script>
+</body>
+</html>

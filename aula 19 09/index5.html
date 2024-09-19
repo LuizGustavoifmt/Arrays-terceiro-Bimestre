@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        function maxNum() {
+            var numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 33, 9, 8, 7, 2, 3, 4, 28, 49, 20];
+            var maxNumero = -Infinity;
+
+            for (var i = 0; i < numeros.length; i++) {
+                maxNumero = Math.max(maxNumero, numeros[i]);
+            }
+
+            document.getElementById("demo").innerHTML = "O maior número digitado é: " + maxNumero;
+        }
+
+        maxNum();
+    </script> 
+</body>
+</html>

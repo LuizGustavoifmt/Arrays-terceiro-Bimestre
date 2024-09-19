@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+    <script>
+        function minNum() {
+            var numeros = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+            var minNumero = Infinity;
+            //Infinity para que possa ser comparado com os números da array
+    
+            for (var i = 0; i < numeros.length; i++) {
+                minNumero = Math.min(minNumero, numeros[i]);
+                //O Math.min é uma função JavaScript que retorna o menor número dentre os argumentos passados. Neste caso, ele é usado para comparar o minNumero
+            }
+    
+            document.getElementById("demo").innerHTML = "O menor número digitado é: " + minNumero;
+        }
+    
+        minNum();
+    </script>
+</body>
+</html>
