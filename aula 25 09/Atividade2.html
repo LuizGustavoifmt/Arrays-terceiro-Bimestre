@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        form {
+            margin: 20px;
+        }
+        label {
+            display: block;
+        }
+        input[type="number"] {
+            width: 35%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #demo {
+            margin-top: 10px;
+        }
+        #demo:empty {
+            display: none;
+        }
+        #demo:not(:empty) {
+            display: block;
+        }
+        #armazenar, #mostrar {
+            cursor: pointer;
+        }
+        #armazenar:disabled, #mostrar:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+    <h1>Mostrar o maior número digitado pelo usuário</h1>
+    <form action="#">
+        <label for="#">Digite um número:</label><br>
+        <input type="number" id="number" name="number" required><br>
+        <button type="button" id="armazenar">armazenar</button>
+        <button type="button" id="mostrar">Mostrar</button><br>
+        <p id="demo"></p>
+    </form>
+    <script>
+         let numbers = [];
+
+document.getElementById("armazenar").onclick = function() {
+    let armazenar = parseFloat(document.getElementById("number").value);
+    numbers.push(armazenar);
+    document.getElementById("number").value = "";
+}
+        document.getElementById("mostrar").onclick = function() {
+            if (numbers.length > 0 && numbers.length < 20){
+                let maiorNumber =  numbers [0];
+                for (let i = 1; i < numbers.length; i++) {
+                    if (numbers[i] > maiorNumber) {
+                        maiorNumber = numbers[i];
+                    }
+                }
+                document.getElementById("demo").innerText = "O maior número é: " + maiorNumber + ". Os números digitados foram: " + numbers.join(", ");
+                }
+            }
+
+    </script>
+    
+</body>
+</html>
