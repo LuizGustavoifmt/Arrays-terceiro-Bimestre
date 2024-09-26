@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Total da Compra</h1>
+    <input type="number" id="preco" placeholder="Digite o preço do item">
+    <button onclick="adicionarPreco()">Adicionar Preço</button>
+    <button onclick="calcularTotal()">Calcular Total</button>
+    <p id="resultado"></p>
+    <p id="totalParcial"></p>
+
+    <script>
+        let precos = [];
+
+        function adicionarPreco() {
+            let preco = parseFloat(document.getElementById('preco').value);
+            if (preco || preco === 0) {
+                precos.push(preco);
+                document.getElementById('preco').value = '';
+                mostrarTotalParcial();
+            }
+        }
+
+        function mostrarTotalParcial() {
+            let totalParcial = 0;
+            for (let i = 0; i < precos.length; i++) {
+                totalParcial += precos[i];
+            }
+            document.getElementById('totalParcial').innerText = 'Total parcial: R$ ' + totalParcial.toFixed(2);
+        }
+
+        function calcularTotal() {
+            if (precos.length === 20) {
+                let total = 0;
+                for (let i = 0; i < precos.length; i++) {
+                    total += precos[i];
+                }
+                document.getElementById('resultado').innerText = 'O total a pagar é: R$ ' + total.toFixed(2);
+            } else {
+                document.getElementById('resultado').innerText = `Você inseriu ${precos.length} itens. Por favor, insira os preços dos 20 itens.`;
+            }
+        }
+    </script>
+</body>
+</html>
