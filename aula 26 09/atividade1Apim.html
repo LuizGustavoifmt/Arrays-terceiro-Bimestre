@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ler 10 e mostrar maior e menor</title>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            padding: 5px;
+            width: 200px;
+        }
+
+        button {
+            margin-top: 35px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <h2>Mostrar o menor número digitado pelo usuário</h2>
+    <form>
+        <label>Digite um número</label><br>
+        <input type="number" id="recebedora"><br>
+        <button type="button" id="armazenar"> Armazenar</button>
+        <button type="button" onclick="encontrarMenor()"> Encontrar menor número</button>
+    </form>
+    <p id="resultado"></p>
+    <script>
+        let numbers = [];
+        document.getElementById("armazenar").onclick = function () {
+            let recebedora = parseFloat(document.getElementById("recebedora").value);
+            numbers.push(recebedora);
+            if (!isNaN (recebedora)){
+            }
+            document.getElementById("recebedora").value = ""; 
+        }
+      function encontrarMenor() {
+            if (numbers.length > 0) {
+                let menorNumero = Math.min(...numbers)
+                document.getElementById("resultado").innerText = "os números digitados foram: " + numbers.join(",") + ".  O menor numero digitado foi: " + menorNumero;
+            } else { 
+                document.getElementById("resultado").innerText = "Você precisa digitar pelo menos 10 números."; 
+    
+        }}
+             
+
+       
+       
+
+    </script>
+</body>
+
+</html>
