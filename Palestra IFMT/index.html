@@ -35,7 +35,6 @@
         const inputPalavraChave = document.getElementById('inputPalavraChave');
         const btnLimpar = document.getElementById('btnLimpar');
 
-        // Adiciona participante ao array
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             const nome = form.nome.value;
@@ -47,7 +46,6 @@
             atualizarListaParticipantes();
         });
 
-        // Atualiza a lista de participantes exibida
         function atualizarListaParticipantes() {
             listaParticipantes.innerHTML = '';
             participantes.forEach(participante => {
@@ -55,16 +53,14 @@
             });
         }
 
-        // Envia participantes quando a palavra-chave "acabou" for digitada
         inputPalavraChave.addEventListener('input', function () {
             if (inputPalavraChave.value.toLowerCase() === 'acabou') {
                 enviarParticipantes();
-                inputPalavraChave.value = ''; // Limpa o campo de palavra-chave
+                inputPalavraChave.value = '';
 
             }
         });
 
-        // Função para enviar participantes ao Formspree
         function enviarParticipantes() {
             participantes.forEach(participante => {
                 const formData = new FormData();
@@ -88,12 +84,12 @@
                         console.error('Erro de rede:', error);
                     });
             });
-            participantes.length = 0; // Limpa o array de participantes
+            participantes.length = 0;
             atualizarListaParticipantes();
             alert('Participantes enviados com sucesso!');
-            inputPalavraChave.value = ''; // Limpa o campo de palavra-chave
+            inputPalavraChave.value = ''; 
             }
-            // Limpa os dados do formulário
+          
             btnLimpar.addEventListener('click', function () {
                 form.reset();
                 participantes.length = 0;
