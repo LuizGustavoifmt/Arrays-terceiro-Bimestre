@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestra IFMT</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Cadastro de Participantes</h2>
+        <form id="formParticipante">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="cpf" placeholder="CPF" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="categoria" required>
+                <option value="1">Ouvinte</option>
+                <option value="2">Palestrante</option>
+                <option value="3">Organizador</option>
+            </select>
+            <button type="submit">Enviar</button>
+            <button type="button" id="btnLimpar">Limpar</button>
+        </form>
+        <h3>Participantes:</h3>
+        <div id="listaParticipantes"></div>
+        <input type="text" id="inputPalavraChave" placeholder="Digite 'acabou' para enviar">
+    </div>
+    <script>
+        const participantes = [];
+        const form = document.getElementById('formParticipante');
+        const listaParticipantes = document.getElementById('listaParticipantes');
+        const inputPalavraChave = document.getElementById('inputPalavraChave');
+        const btnLimpar = document.getElementById('btnLimpar');
+
+        // Adiciona participante ao array
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const nome = form.nome.value;
+            const cpf = form.cpf.value;
+            const email = form.email.value;
+            const categoria = form.categoria.value;
+            participantes.push({ nome, cpf, email, categoria });
+            form.reset();
+            atualizarListaParticipantes();
+        });
+
+        // Atualiza a lista de participantes exibida
+        function atualizarListaParticipantes() {
+            listaParticipantes.innerHTML = '';
+            participantes.forEach(participante => {
+                listaParticipantes.innerHTML += `<p>${participante.categoria} - ${participante.nome}</p>`;
+            });
+        }
+
+        // Envia participantes quando a palavra-chave "acabou" for digitada
+        inputPalavraChave.addEventListener('input', function () {
+            if (inputPalavraChave.value.toLowerCase() === 'acabou') {
+                enviarParticipantes();
+                inputPalavraChave.value = ''; // Limpa o campo de palavra-chave
+
+            }
+        });
+
+        // Função para enviar participantes ao Formspree
+        function enviarParticipantes() {
+            participantes.forEach(participante => {
+                const formData = new FormData();
+                formData.append('nome', participante.nome);
+                formData.append('cpf', participante.cpf);
+                formData.append('email', participante.email);
+                formData.append('categoria', participante.categoria);
+
+                fetch('https://formspree.io/f/xgveerea', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(`Dados de ${participante.nome} enviados com sucesso!`);
+                        } else {
+                            console.error(`Erro ao enviar dados de ${participante.nome}.`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro de rede:', error);
+                    });
+            });
+            participantes.length = 0; // Limpa o array de participantes
+            atualizarListaParticipantes();
+            alert('Participantes enviados com sucesso!');
+            inputPalavraChave.value = ''; // Limpa o campo de palavra-chave
+            }
+            // Limpa os dados do formulário
+            btnLimpar.addEventListener('click', function () {
+                form.reset();
+                participantes.length = 0;
+                atualizarListaParticipantes();
+                alert('Formulário limpo!');
+            });
+    </script>
+</body>
+
+</html>
