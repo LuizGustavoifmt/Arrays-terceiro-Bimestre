@@ -14,11 +14,10 @@ document.getElementById('participantForm').addEventListener('submit', function(e
         addParticipant(name, cpf, email, category);
     }
 
-    // Limpa os campos do formulário
     this.reset();
 });
 
-let participants = []; // Array para armazenar os participantes
+let participants = [];
 
 function addParticipant(name, cpf, email, category) {
     participants.push({ name, cpf, email, category });
@@ -26,17 +25,14 @@ function addParticipant(name, cpf, email, category) {
 
 function displayResults() {
     const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = ''; // Limpa a saída anterior
+    outputDiv.innerHTML = ''; 
 
-    // Exibe a quantidade de participantes
     outputDiv.innerHTML += `<h2>Total de Participantes: ${participants.length}</h2>`;
     
-    // Exibe cada participante com sua categoria
     participants.forEach(participant => {
         outputDiv.innerHTML += `<p>${participant.category} - ${participant.name}</p>`;
     });
 
-    // Envia os dados para o Formspree
     sendToFormspree(participants);
 }
 
@@ -55,10 +51,8 @@ async function sendToFormspree(participants) {
         console.error('Erro ao enviar os dados:', response.statusText);
     }
 }
-
-// codigo para o botão "Limpar"
 document.getElementById('clearButton').addEventListener('click', function() {
-    participants = []; // Limpa a lista de participantes
-    document.getElementById('output').innerHTML = ''; // Limpa a saída na tela
+    participants = []; 
+    document.getElementById('output').innerHTML = ''; 
     console.log('Participantes limpos.'); 
 });
