@@ -1,66 +1,64 @@
-const participantForm = document.getElementById('participant-form');
-const participantsList = document.getElementById('participants-list');
-const showParticipantsBtn = document.getElementById('show-participants-btn');
-const participantsListContainer = document.getElementById('participants-list-container');
-const participants = [];
+document.getElementById('participantForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o envio padrão do formulário
 
-participantForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Previne o envio padrão do formulário
-
-    const name = document.getElementById('name').value;
-    const cpf = document.getElementById('cpf').value;
-    const email = document.getElementById('email').value;
+    const name = document.getElementById('name').value.trim();
+    const cpf = document.getElementById('cpf').value.trim();
+    const email = document.getElementById('email').value.trim();
     const category = document.getElementById('category').value;
 
-    // Adiciona o participante à lista
-    const participant = { name, cpf, email, category };
-    participants.push(participant);
+    // Verifica se o nome é "ACABOU"
+    if (name.toUpperCase() === 'ACABOU') {
+        displayResults();
+    } else {
+        // Adiciona o participante à lista
+        addParticipant(name, cpf, email, category);
+    }
 
-    // Envia as informações para o Formspree
-    fetch('https://formspree.io/f/xgveerea', {
+    // Limpa os campos do formulário
+    this.reset();
+});
+
+let participants = []; // Array para armazenar os participantes
+
+function addParticipant(name, cpf, email, category) {
+    participants.push({ name, cpf, email, category });
+}
+
+function displayResults() {
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = ''; // Limpa a saída anterior
+
+    // Exibe a quantidade de participantes
+    outputDiv.innerHTML += `<h2>Total de Participantes: ${participants.length}</h2>`;
+    
+    // Exibe cada participante com sua categoria
+    participants.forEach(participant => {
+        outputDiv.innerHTML += `<p>${participant.category} - ${participant.name}</p>`;
+    });
+
+    // Envia os dados para o Formspree
+    sendToFormspree(participants);
+}
+
+async function sendToFormspree(participants) {
+    const response = await fetch('https://formspree.io/f/xgveerea', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            name: name,
-            cpf: cpf,
-            email: email,
-            category: category
-        })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
-
-    // Limpa os campos do formulário
-    participantForm.reset();
-});
-
-showParticipantsBtn.addEventListener('click', () => {
-    displayParticipants();
-});
-
-function displayParticipants() {
-    participantsListContainer.style.display = 'block';
-    participantsList.innerHTML = '';
-    participants.forEach((participant, index) => {
-        const participantListItem = document.createElement('li');
-        participantListItem.classList.add('participant');
-        participantListItem.innerHTML = `
-            <p>Nome: ${participant.name}</p>
-            <p>CPF: ${participant.cpf}</p>
-            <p>Email: ${participant.email}</p>
-            <p>Categoria: ${participant.category === '1' ? 'Ouvinte' : participant.category === '2' ? 'Palestrante' : 'Organizador'}</p>
-        `;
-        participantsList.appendChild(participantListItem);
+        body: JSON.stringify({ participants })
     });
+
+    if (response.ok) {
+        console.log('Dados enviados com sucesso!');
+    } else {
+        console.error('Erro ao enviar os dados:', response.statusText);
+    }
 }
 
-const endEventBtn = document.getElementById('end-event-btn');
-
-endEventBtn.addEventListener('click', () => {
-    participantsListContainer.style.display = 'none';
-    participantsList.innerHTML = '';
-    participants = [];
+// codigo para o botão "Limpar"
+document.getElementById('clearButton').addEventListener('click', function() {
+    participants = []; // Limpa a lista de participantes
+    document.getElementById('output').innerHTML = ''; // Limpa a saída na tela
+    console.log('Participantes limpos.'); 
 });
