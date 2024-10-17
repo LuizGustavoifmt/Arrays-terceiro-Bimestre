@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Evento IFMT</h1>
+        <form id="participant-form" action="https://formspree.io/f/xgveerea" method="POST">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="category">Categoria:</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="1">Ouvinte</option>
+                    <option value="2">Palestrante</option>
+                    <option value="3">Organizador</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Enviar</button>
+            <button id="end-event-btn" class="btn">Acabou</button>
+        <button id="show-participants-btn" class="btn">Exibir Participantes</button>
+        <div class="participants-list" id="participants-list-container">
+            <h2>Participantes:</h2>
+            <ul id="participants-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
