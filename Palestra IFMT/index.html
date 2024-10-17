@@ -73,16 +73,7 @@
                     method: 'POST',
                     body: formData
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log(`Dados de ${participante.nome} enviados com sucesso!`);
-                        } else {
-                            console.error(`Erro ao enviar dados de ${participante.nome}.`);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erro de rede:', error);
-                    });
+                    
             });
             participantes.length = 0;
             atualizarListaParticipantes();
